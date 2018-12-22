@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = 'user'
 
@@ -17,12 +18,12 @@ class User(Base):
 
     @property
     def serialize(self):
-       return {
+        return {
            'id': self.id,
            'name': self.name,
-           'email' : self.email
-       }
-    
+           'email': self.email}
+
+
 class Category(Base):
     __tablename__ = 'category'
 
@@ -32,11 +33,11 @@ class Category(Base):
 
     @property
     def serialize(self):
-       return {
+        return {
            'id': self.id,
            'name': self.name,
-           'items' : [i.serialize for i in self.items]
-       }
+           'items': [i.serialize for i in self.items]}
+
 
 class Item(Base):
     __tablename__ = 'item'
@@ -45,17 +46,15 @@ class Item(Base):
     name = Column(String(80), nullable=False)
     desc = Column(String(1000))
     category_id = Column(Integer, ForeignKey('category.id'))
-    #category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-    
+
     @property
     def serialize(self):
-       return {
+        return {
            'id': self.id,
            'name': self.name,
-           'desc' : self.desc
-       }
+           'desc': self.desc}
 
 
 engine = create_engine('sqlite:///catalog.db')
