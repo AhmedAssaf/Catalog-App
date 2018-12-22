@@ -1,0 +1,48 @@
+<html>
+
+<head>
+</head>
+
+<body>
+	<div class="col-md-6 text-right">
+		{%if 'username' not in session %}
+		<a href="{{url_for('showLogin')}}">Click Here to Login </a> {% else %}
+		<a href="{{url_for('gdisconnect')}}">Logout </a> {% endif %}
+	</div>
+
+	{% with messages = get_flashed_messages() %} {% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li><strong>{{message}}</strong></li>
+		{% endfor %}
+	</ul>
+	{% endif %} {% endwith %}
+
+	<div>
+		<!-- Add New Item -->
+		<h3> Edit New Item </h3>
+		<h3> {{item.name}}</h3>
+		<h3> {{item.desc}}</h3>
+		<!-- Edit Form -->
+		<form method='POST' enctype='multipart/form-data' action='{{ url_for("editItem",catName=item.category.name, itemName = item.name)}}'>
+			<input type='text' name='name' placeholder='name' />
+			<input type='text' name='desc' placeholder='desc' />
+
+			<select name="categoryName">
+				{% for i in catList %}
+				{% if item.category_id == i.id %}
+				<option value="{{i.name}}" selected>{{i.name}}</option>
+				{% else %}
+				<option value="{{i.name}}">{{i.name}}</option>
+				{% endif %}
+				{% endfor %}
+			</select>
+
+			<button type='submit'> edit item! </button>
+		</form>
+	</div>
+	</br>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<html>
+<head>
+	<body>
+		<div class="col-md-6 text-right">
+				{%if 'username' not in session %}
+				<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+				{% else %}
+				<a href="{{url_for('gdisconnect')}}">Logout </a>
+				{% endif %}
+		</div>
+		
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul>
+			{% for message in messages %}
+			<li><strong>{{message}}</strong></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+		
+		<div>
+			<h3> {{item.name}}</h3>
+			<h3> {{item.desc}}</h3>
+		</div>
+	</br>
+	
+</body>
+</head>
+</html>

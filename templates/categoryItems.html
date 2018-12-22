@@ -1,0 +1,49 @@
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="./static/style.css" </head>
+
+	<body>
+		<div class="col-md-6 text-right">
+			{%if 'username' not in session %}
+			<a href="{{url_for('showLogin')}}">Click Here to Login </a> {% else %}
+			<a href="{{url_for('gdisconnect')}}">Logout </a> {% endif %}
+		</div>
+		<div>
+			{% with messages = get_flashed_messages() %} {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li><strong>{{message}}</strong></li>
+				{% endfor %}
+			</ul>
+			{% endif %} {% endwith %}
+		</div>
+		<div class="fullwidth">
+			<div class="halfwidth">
+				<!-- Iterate through the category list , display the category name and it is href -->
+				<span> Categories </span>
+				<br /> {% for i in categoryList %}
+				<a href='{{url_for("showCategory", catName = i.name) }}'>{{i.name}}</a>
+				</br>
+				{% endfor %}
+			</div>
+			<div class="halfwidth">
+
+				{%if 'username' in session %}
+				<a href='{{url_for("addItem",catName=ItemList[0].category.name)}}'>Add Item </a> {% endif %}
+				<br>
+				<!-- Iterate through the item list , display the latest name and it is href -->
+				<span> {{ItemList[0].category.name}} Items  </span>
+				<span>(  {{ItemList|length}}  item ) </span>
+				<br /> {% for i in ItemList %}
+				<a href='{{url_for("showItem", catName = i.category.name ,itemName = i.name) }}'>
+					<span>{{i.name}} </span>
+				</a>
+				</br>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,37 @@
+
+
+    <html>
+<head>
+</head>
+	<body>
+		<div class="col-md-6 text-right">
+				{%if 'username' not in session %}
+				<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+				{% else %}
+				<a href="{{url_for('gdisconnect')}}">Logout </a>
+				{% endif %}
+		</div>
+
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul>
+			{% for message in messages %}
+			<li><strong>{{message}}</strong></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+		
+		<div>
+				<!-- Add New Item -->
+	<h3> Add New Item </h3>
+	<form method ='POST' enctype='multipart/form-data' action ='{{ url_for("addItem",catName=category.name)}}'>
+		<input type='text' name='name' placeholder='name'/>
+		<input type='text' name='desc' placeholder='desc'/>
+		<button type='submit'> add Item! </button>
+	</form>
+		</div>
+	</br>
+	
+</body>
+</html>

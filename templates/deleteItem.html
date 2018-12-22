@@ -1,0 +1,34 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <div class="col-md-6 text-right">
+        {%if 'username' not in session %}
+        <a href="{{url_for('showLogin')}}">Click Here to Login </a> {% else %}
+        <a href="{{url_for('gdisconnect')}}">Logout </a> {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li><strong>{{message}}</strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <div>
+        <h3> {{item.name}}</h3>
+        <h3> {{item.desc}}</h3>
+        <!-- Delete Form -->
+        <span><h5>Are you sure you want to delete?</h5></span>
+        <form method='POST' enctype='multipart/form-data' action='{{ url_for("deleteItem",catName=item.category.name, itemName = item.name)}}'>
+            <button type='submit'> delete item! </button>
+        </form>
+    </div>
+    </br>
+
+</body>
+
+</html>
