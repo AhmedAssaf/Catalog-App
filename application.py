@@ -17,9 +17,7 @@ from flask import jsonify
 
 # Instance, every time it runs create instance name
 app = Flask(__name__)
-engine = create_engine(
-    'sqlite:///catalog.db?check_same_thread=False',
-    poolclass=SingletonThreadPool)
+engine = create_engine('postgresql://catalog:password@localhost/catalog')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
